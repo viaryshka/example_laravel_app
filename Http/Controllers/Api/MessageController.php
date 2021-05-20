@@ -1,0 +1,79 @@
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Models\Message;
+use App\Services\ChatService;
+use Illuminate\Http\Request;
+
+class MessageController extends Controller
+{
+    private $chatService;
+
+    public function __construct(ChatService $chatService)
+    {
+        $this->authorizeResource(Message::class);
+        $this->chatService = $chatService;
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Message  $message
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Message $message)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Message  $message
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, Message $message)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Message  $message
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Message $message)
+    {
+        $deleted = $this->chatService->deleteMessage($message);
+        if (! $deleted) {
+            abort(400);
+        }
+
+        return response()->noContent();
+    }
+}
